@@ -22,14 +22,24 @@ node {
         }
     }
     stage('Deploy') {
-        docker.image('cdrx/pyinstaller-linux:python2').inside {
+        docker.image('cdrx/pyinstaller-linux:python2').inside('--user root') {
+            sh '''
+            echo "Checking if Git is installed..."
+            if ! command -v git &> /dev/null; then
+                echo "Git is not installed. Installing Git..."
+                apt-get update && apt-get install -y git
+            else
+                echo "Git is already installed."
+            fi
+            '''
+
             sh 'pyinstaller --onefile sources/add2vals.py'
             withCredentials([string(credentialsId: 'github-token', variable: 'GITHUB_TOKEN')]) {
             sh '''
             echo 'Configuring Git in Docker environment...'
             git config --global user.name "Your Name"
             git config --global user.email "your.email@example.com"
-            git config --global --add safe.directory /var/jenkins_home/workspace/simple-python-installer-app
+            git config --global --add safe.directory /var/jenkins_home/workspace/submission-cicd-pipeline-Clown69
 
             # Pastikan Git sudah diinisialisasi
             
