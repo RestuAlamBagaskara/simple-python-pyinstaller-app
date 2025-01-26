@@ -33,7 +33,6 @@ node {
             fi
             '''
 
-            sh 'pyinstaller --onefile sources/add2vals.py'
             withCredentials([string(credentialsId: 'github-token', variable: 'GITHUB_TOKEN')]) {
             sh '''
             echo 'Configuring Git in Docker environment...'
