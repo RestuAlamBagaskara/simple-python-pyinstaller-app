@@ -32,6 +32,7 @@ node {
                 echo "Git is already installed."
             fi
             '''
+            withCredentials([string(credentialsId: 'github-token', variable: 'GITHUB_TOKEN')]){
             sh '''
             echo 'Configuring Git in Docker environment...'
             git config --global user.name "Your Name"
@@ -42,20 +43,14 @@ node {
             
             echo "Initializing Git repository..."
             git init
-            git remote set-url origin https://github.com/RestuAlamBagaskara/simple-python-pyinstaller-app.git
-            
-
-            # Pastikan branch target ada
-            git fetch origin
-            git checkout master
-            git pull origin master
+            git remote set-url origin https://github.com/${GITHUB_TOKEN}@RestuAlamBagaskara/simple-python-pyinstaller-app.git
 
             git add .
             git status
             git commit -m "Jenkins: Deployed" || echo "No changes to commit"
             git push origin master --verbose || echo "Failed to push changes"
             '''
-            
+            }
             sleep 60
         }
     }
