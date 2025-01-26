@@ -44,7 +44,7 @@ node {
             
             echo "Initializing Git repository..."
             git init
-            git remote add origin https://${GITHUB_TOKEN}@github.com/RestuAlamBagaskara/simple-python-pyinstaller-app.git
+            git remote set-url origin https://${GITHUB_TOKEN}@github.com/RestuAlamBagaskara/simple-python-pyinstaller-app.git
             
 
             # Pastikan branch target ada
