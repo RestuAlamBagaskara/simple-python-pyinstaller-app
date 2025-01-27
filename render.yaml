@@ -3,5 +3,4 @@ services:
     name: python-cli-app
     env: python
     runtime: python3
-    buildCommand: buildCommand: "chmod +x sources/add2vals.py"
     startCommand: "python sources/add2vals.py"
