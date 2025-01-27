@@ -2,5 +2,5 @@ services:
   - type: worker
     name: python-cli-app
     env: python
-    runtime: python3
+    runtime: python
     startCommand: "python sources/add2vals.py"
